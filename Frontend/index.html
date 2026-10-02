@@ -15,6 +15,7 @@
             <div class="space-x-4">
                 <a href="/" class="text-sm bg-white text-blue-600 font-semibold px-3 py-1.5 rounded-lg">Stok Inventaris</a>
                 <a href="/kasir" class="text-sm bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg">Kasir / POS</a>
+                <a href="/laporan" class="text-sm bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded-lg">Laporan Penjualan</a>
             </div>
         </div>
     </nav>
@@ -89,47 +90,60 @@
         </div>
     </div>
 
-    <!-- Modal Form Tambah Barang -->
-    <div id="addModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex justify-center items-center">
-        <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
-            <h3 class="text-lg font-bold text-gray-900 mb-4">Tambah Sparepart Baru</h3>
-            <form action="/add" method="POST" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase">Kode Barang</label>
-                    <input type="text" name="kode_barang" placeholder="Contoh: FLT-001" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                </div>
-                <div>
-                    <label class="block text-xs font-semibold text-gray-600 uppercase">Nama Barang</label>
-                    <input type="text" name="nama_barang" placeholder="Contoh: Filter Oli Vario" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase">Stok Awal</label>
-                        <input type="number" name="stok" placeholder="10" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase">Stok Minimal</label>
-                        <input type="number" name="stok_minimal" value="5" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase">Harga Beli</label>
-                        <input type="number" name="harga_beli" placeholder="15000" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-gray-600 uppercase">Harga Jual</label>
-                        <input type="number" name="harga_jual" placeholder="25000" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
-                    </div>
-                </div>
-                <div class="flex justify-end space-x-3 pt-4 border-t">
-                    <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300">Batal</button>
-                    <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Simpan Barang</button>
-                </div>
-            </form>
-        </div>
-    </div>
+   <!-- Modal Form Tambah Barang / Jasa -->
+<div id="addModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex justify-center items-center z-50">
+    <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
+        <h3 class="text-lg font-bold text-gray-900 mb-4">Tambah Sparepart / Jasa Baru</h3>
+        <form action="/tambah_inventory" method="POST" class="space-y-4">
+            
+            <!-- Pilihan Tipe (Jasa / Sparepart) -->
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase">Tipe Item</label>
+                <select name="tipe" class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm bg-white">
+                    <option value="sparepart">📦 Sparepart (Barang Fisik)</option>
+                    <option value="jasa">🛠️ Jasa / Layanan Servis</option>
+                </select>
+            </div>
 
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase">Kode Barang / Jasa</label>
+                <input type="text" name="kode_barang" placeholder="Contoh: FLT-001 / JSA-001" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+            </div>
+
+            <div>
+                <label class="block text-xs font-semibold text-gray-600 uppercase">Nama Barang / Jasa</label>
+                <input type="text" name="nama_barang" placeholder="Contoh: Filter Oli / Stel Rantai" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase">Stok Awal (Isi 0 jika Jasa)</label>
+                    <input type="number" name="stok" value="0" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase">Stok Minimal</label>
+                    <input type="number" name="stok_minimal" value="5" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase">Harga Beli (Isi 0 jika Jasa)</label>
+                    <input type="number" name="harga_beli" value="0" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-gray-600 uppercase">Harga Jual / Tarif</label>
+                    <input type="number" name="harga_jual" placeholder="25000" required class="w-full mt-1 p-2 border border-gray-300 rounded-lg text-sm">
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-3 pt-4 border-t">
+                <button type="button" onclick="closeAddModal()" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-300">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg text-sm font-medium hover:bg-blue-700">Simpan Item</button>
+            </div>
+        </form>
+    </div>
+</div>
     <!-- Modal Form Edit Barang -->
     <div id="editModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden flex justify-center items-center">
         <div class="bg-white rounded-xl shadow-lg w-full max-w-md p-6">
@@ -170,6 +184,7 @@
             </form>
         </div>
     </div>
+  
 
     <script>
         function openAddModal() { document.getElementById('addModal').classList.remove('hidden'); }
