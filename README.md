@@ -1,129 +1,112 @@
-# AutoServis - SaaS Manajemen Bengkel & Booking Online
+# AutoServis - Platform B2B SaaS Manajemen Bengkel
 
-**AutoServis** adalah platform digital berbasis B2B SaaS (*Software-as-a-Service*) yang dirancang untuk membantu pemilik bengkel UMKM mendigitalisasi operasional harian. Sistem ini menggabungkan manajemen inventaris, kasir (POS), rekam medis kendaraan, serta sistem antrean dan pengingat servis otomatis untuk meningkatkan efisiensi bisnis dan retensi pelanggan.
-
----
-
-## 🎯 Masalah & Solusi
-
-* **Masalah:** Banyak bengkel UMKM masih menggunakan pencatatan manual, sering kehabisan atau kehilangan stok *sparepart*, tidak memiliki riwayat servis kendaraan pelanggan, serta kesulitan mempertahankan pelanggan agar kembali melakukan servis berkala.
-* **Solusi:** AutoServis menyediakan *dashboard* terintegrasi untuk pengelolaan stok dan kasir, portal *booking online* bagi pelanggan, rekam medis kendaraan berbasis plat nomor, serta pengingat servis otomatis via WhatsApp Gateway.
-
----
-
-## ✨ Fitur Utama
-
-### 🛠️ Modul Bengkel (Web Admin & Dashboard POS)
-* **Point of Sales (POS) & Kasir:** Transaksi cepat dan pencetakan nota/invoice digital.
-* **Manajemen Inventaris *Sparepart*:** Pencatatan stok keluar-masuk otomatis yang memotong jumlah barang secara *real-time* saat terjadi transaksi.
-* **Alert Stok Minimum:** Notifikasi otomatis jika persediaan suku cadang tertentu mulai menipis.
-* **Rekam Medis Kendaraan (Service History):** Pencatatan riwayat perbaikan dan penggantian *part* berdasarkan nomor plat kendaraan.
-* **Manajemen Antrean & Booking:** Konfirmasi dan alokasi jadwal servis masuk dari pelanggan.
-
-### 📱 Modul Pelanggan (Web Portal / App)
-* **Booking Servis Online:** Pilihan jadwal dan konsultasi keluhan awal secara *online*.
-* **Status Servis Real-Time:** Memantau proses pengerjaan kendaraan dari jarak jauh.
-* **Riwayat Servis Digital:** Mengakses histori perbaikan kendaraan kapan saja.
-
-### 🔔 Modul Notifikasi & Automasi
-* **WhatsApp Gateway:** Pengiriman notifikasi pengingat otomatis untuk servis berkala (misal: 3 bulan setelah servis terakhir).
-
----
-
-## 💼 Model Bisnis (Monetisasi)
-
-1. **B2B Subscription (SaaS):** 
-   * **Freemium:** Gratis hingga 50 transaksi pertama/bulan.
-   * **Pro Plan:** Biaya langganan bulanan/tahunan untuk akses transaksi *unlimited* dan fitur pengingat WhatsApp.
-2. **Affiliate Supplier Commissions:** Komisi dari distributor *sparepart* saat bengkel melakukan *restock* bahan baku melalui platform.
-
----
-
-## 🛠️ Tech Stack (Rencana Pengembangan)
-
-* **Frontend:** React.js / Vue.js / Tailwind CSS
-* **Backend:** Node.js (Express) / Laravel
-* **Database:** PostgreSQL / MySQL
-* **Authentication:** JWT / Firebase Auth
-* **Third-Party API:** WhatsApp Gateway API (Fonnte / Twilio)
-
----
-
-## 📊 Structure Database Utama (ERD Preview)
-
-* `Users` (Admin Bengkel, Mekanik, Pelanggan)
-* `Vehicles` (Plat Nomor, Merek, Tipe, Tahun)
-* `Services` (Jenis Servis, Biaya Jasa)
-* `Inventory` (Kode Barang, Nama Sparepart, Stok, Harga Beli, Harga Jual)
-* `Bookings` (Tanggal, Jam, Status, Keluhan)
-* `Transactions` (Detail Nota, Total Bayar, Metode Pembayaran)
-
----
-
-## 📝 Lisensi
-
-Proyek ini dikembangkan untuk tujuan akademis dan pengembangan open-source di bawah lisensi [MIT License](LICENSE).# AutoServis - SaaS Manajemen Bengkel & Booking Online
-
-**AutoServis** adalah platform digital berbasis B2B SaaS (*Software-as-a-Service*) yang dirancang untuk membantu pemilik bengkel UMKM mendigitalisasi operasional harian. Sistem ini menggabungkan manajemen inventaris, kasir (POS), rekam medis kendaraan, serta sistem antrean dan pengingat servis otomatis untuk meningkatkan efisiensi bisnis dan retensi pelanggan.
+AutoServis adalah platform digital B2B SaaS (Software-as-a-Service) yang dirancang untuk membantu pemilik bengkel UMKM mendigitalisasi operasional harian. Sistem ini mengintegrasikan pengelolaan inventaris (sparepart & jasa), kasir (Point of Sale), serta pelaporan omzet dan modal secara real-time.
 
 ---
 
 ## 🎯 Masalah & Solusi
 
-* **Masalah:** Banyak bengkel UMKM masih menggunakan pencatatan manual, sering kehabisan atau kehilangan stok *sparepart*, tidak memiliki riwayat servis kendaraan pelanggan, serta kesulitan mempertahankan pelanggan agar kembali melakukan servis berkala.
-* **Solusi:** AutoServis menyediakan *dashboard* terintegrasi untuk pengelolaan stok dan kasir, portal *booking online* bagi pelanggan, rekam medis kendaraan berbasis plat nomor, serta pengingat servis otomatis via WhatsApp Gateway.
+- Masalah: Banyak bengkel UMKM masih menggunakan pencatatan manual, sering kehabisan stok sparepart, tidak memisahkan pencatatan antara jasa servis dan barang fisik, serta kesulitan melacak riwayat omzet harian.
+- Solusi: AutoServis menyediakan dashboard terintegrasi untuk pengelolaan stok sparepart & jasa, kasir POS serbaguna yang otomatis memotong stok barang fisik tanpa mengganggu inventaris jasa, serta laporan penjualan otomatis.
 
 ---
 
-## ✨ Fitur Utama
+## 🚀 Fitur yang Sudah Implementasi (MVP)
 
-### 🛠️ Modul Bengkel (Web Admin & Dashboard POS)
-* **Point of Sales (POS) & Kasir:** Transaksi cepat dan pencetakan nota/invoice digital.
-* **Manajemen Inventaris *Sparepart*:** Pencatatan stok keluar-masuk otomatis yang memotong jumlah barang secara *real-time* saat terjadi transaksi.
-* **Alert Stok Minimum:** Notifikasi otomatis jika persediaan suku cadang tertentu mulai menipis.
-* **Rekam Medis Kendaraan (Service History):** Pencatatan riwayat perbaikan dan penggantian *part* berdasarkan nomor plat kendaraan.
-* **Manajemen Antrean & Booking:** Konfirmasi dan alokasi jadwal servis masuk dari pelanggan.
+1. Dashboard Inventaris Terpadu (Sparepart & Jasa)
+   - Pencatatan barang fisik (Sparepart) dan layanan (Jasa).
+   - Alert indikator stok minimum.
+   - Form modal pop-up unified (+ Tambah Item / Jasa).
 
-### 📱 Modul Pelanggan (Web Portal / App)
-* **Booking Servis Online:** Pilihan jadwal dan konsultasi keluhan awal secara *online*.
-* **Status Servis Real-Time:** Memantau proses pengerjaan kendaraan dari jarak jauh.
-* **Riwayat Servis Digital:** Mengakses histori perbaikan kendaraan kapan saja.
+2. Point of Sales (POS / Kasir)
+   - Dukungan keranjang transaksi campuran (Sparepart + Jasa).
+   - Pembuatan Nomor Nota Otomatis (Format: INV-YYYYMMDDHHMMSS).
+   - Otomatisasi pemotongan stok khusus item sparepart saat transaksi diproses.
 
-### 🔔 Modul Notifikasi & Automasi
-* **WhatsApp Gateway:** Pengiriman notifikasi pengingat otomatis untuk servis berkala (misal: 3 bulan setelah servis terakhir).
-
----
-
-## 💼 Model Bisnis (Monetisasi)
-
-1. **B2B Subscription (SaaS):** 
-   * **Freemium:** Gratis hingga 50 transaksi pertama/bulan.
-   * **Pro Plan:** Biaya langganan bulanan/tahunan untuk akses transaksi *unlimited* dan fitur pengingat WhatsApp.
-2. **Affiliate Supplier Commissions:** Komisi dari distributor *sparepart* saat bengkel melakukan *restock* bahan baku melalui platform.
+3. Laporan Penjualan & Modal
+   - Pencatatan total omzet dan riwayat transaksi.
+   - Modal Rincian Nota untuk melihat detail item yang dibeli.
 
 ---
 
-## 🛠️ Tech Stack (Rencana Pengembangan)
+## 🛠️ Tech Stack Saat Ini
 
-* **Frontend:** React.js / Vue.js / Tailwind CSS
-* **Backend:** Node.js (Express) / Laravel
-* **Database:** PostgreSQL / MySQL
-* **Authentication:** JWT / Firebase Auth
-* **Third-Party API:** WhatsApp Gateway API (Fonnte / Twilio)
+- Frontend: HTML5, Tailwind CSS (via CDN), Vanilla JavaScript, Jinja2 Template Engine
+- Backend: Python 3.x, Flask Framework
+- Database: MySQL / MariaDB
+- Database Driver: mysql-connector-python
+- Environment Management: python-dotenv
 
 ---
 
-## 📊 Structure Database Utama (ERD Preview)
+## 📊 Database Schema Saat Ini
 
-* `Users` (Admin Bengkel, Mekanik, Pelanggan)
-* `Vehicles` (Plat Nomor, Merek, Tipe, Tahun)
-* `Services` (Jenis Servis, Biaya Jasa)
-* `Inventory` (Kode Barang, Nama Sparepart, Stok, Harga Beli, Harga Jual)
-* `Bookings` (Tanggal, Jam, Status, Keluhan)
-* `Transactions` (Detail Nota, Total Bayar, Metode Pembayaran)
+1. inventory (Katalog Sparepart & Jasa)
+   - id (INT, Primary Key, Auto Increment)
+   - kode_barang (VARCHAR(50), Unique)
+   - nama_barang (VARCHAR(150))
+   - tipe (ENUM('sparepart', 'jasa'), Default: 'sparepart')
+   - stok (INT, Default: 0)
+   - stok_minimal (INT, Default: 5)
+   - harga_beli (DECIMAL(12, 2), Default: 0.00)
+   - harga_jual (DECIMAL(12, 2))
+   - created_at (TIMESTAMP, Default: CURRENT_TIMESTAMP)
+
+2. transactions (Header Nota Penjualan)
+   - id (INT, Primary Key, Auto Increment)
+   - no_nota (VARCHAR(50), Unique, Format: INV-YYYYMMDDHHMMSS)
+   - nama_pelanggan (VARCHAR(100), Default: 'Umum')
+   - total_harga (DECIMAL(12, 2))
+   - created_at (TIMESTAMP, Default: CURRENT_TIMESTAMP)
+
+3. transaction_details (Rincian Item Transaksi)
+   - id (INT, Primary Key, Auto Increment)
+   - transaction_id (INT, Foreign Key -> transactions.id)
+   - inventory_id (INT, Foreign Key -> inventory.id)
+   - jumlah (INT)
+   - harga_satuan (DECIMAL(12, 2))
+   - subtotal (DECIMAL(12, 2))
+
+---
+
+## 🔮 Rencana Pengembangan (Roadmap Fitur Masa Depan)
+
+1. Modul Pelanggan & Booking Online
+   - Portal web untuk pelanggan memilih jadwal dan booking servis.
+2. Modul Notifikasi & Automasi
+   - Integrasi WhatsApp Gateway (Fonnte/Twilio) untuk pengingat servis otomatis.
+3. Rekam Medis Kendaraan (Vehicles)
+   - Tracking riwayat perbaikan berdasarkan nomor plat kendaraan.
+4. Multi-user & Role Management (Users)
+   - Autentikasi JWT / Firebase Auth untuk pemisahan hak akses Admin Bengkel, Mekanik, dan Kasir.
+
+---
+
+## 💻 Cara Menjalankan Aplikasi
+
+1. Clone repositori ini dan masuk ke folder proyek:
+   cd autoservis
+
+2. Buat database di MySQL / MariaDB:
+   CREATE DATABASE autoservis_db;
+
+3. Buat file .env dan atur konfigurasi database:
+   DB_HOST=localhost
+   DB_USER=root
+   DB_PASSWORD=
+   DB_NAME=autoservis_db
+   DB_PORT=3306
+
+4. Install dependency:
+   pip install -r requirements.txt
+
+5. Jalankan aplikasi Flask:
+   python app.py
+
+6. Akses aplikasi melalui browser di http://localhost:5000
 
 ---
 
 ## 📝 Lisensi
 
-Proyek ini dikembangkan untuk tujuan akademis dan pengembangan open-source di bawah lisensi [MIT License](LICENSE).
+Proyek ini dikembangkan untuk tujuan akademis di bawah lisensi MIT License.
