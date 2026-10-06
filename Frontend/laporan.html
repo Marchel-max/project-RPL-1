@@ -5,162 +5,99 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Laporan Penjualan - AutoServis</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-<body class="bg-slate-100 text-slate-800 font-sans min-h-screen">
+<body class="bg-gray-900 text-gray-100 min-h-screen">
 
-    <!-- Header Navigation -->
-    <header class="bg-blue-600 text-white p-4 shadow-md flex justify-between items-center px-8">
-        <h1 class="text-xl font-bold tracking-wide">AutoServis SaaS</h1>
-        <div class="space-x-4 text-sm">
-            <a href="/" class="hover:bg-blue-700 px-3 py-1.5 rounded-lg">Stok Inventaris</a>
-            <a href="/kasir" class="hover:bg-blue-700 px-3 py-1.5 rounded-lg">Kasir / POS</a>
-            <a href="/laporan" class="bg-white text-blue-600 font-semibold px-3 py-1.5 rounded-lg">Laporan Penjualan</a>
+    <!-- Header / Navbar -->
+    <nav class="bg-gray-800 border-b border-gray-700 px-6 py-4 flex justify-between items-center">
+        <div class="flex items-center space-x-3">
+            <a href="/dashboard" class="text-gray-400 hover:text-white transition">
+                <i class="fa-solid fa-arrow-left text-xl"></i>
+            </a>
+            <h1 class="font-bold text-lg text-white">Laporan Penjualan</h1>
         </div>
-    </header>
+        <div class="flex items-center space-x-3">
+            <a href="/kasir" class="bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-semibold px-4 py-2 rounded-xl transition flex items-center space-x-2">
+                <i class="fa-solid fa-plus"></i>
+                <span>Transaksi Baru</span>
+            </a>
+        </div>
+    </nav>
 
-    <main class="max-w-6xl mx-auto mt-8 p-4">
-        <h2 class="text-2xl font-bold mb-6 text-slate-800">📊 Laporan & Ringkasan Penjualan</h2>
-
-        <!-- Ringkasan Cards -->
+    <div class="max-w-6xl mx-auto px-4 py-8">
+        
+        <!-- Summary Cards -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 border-l-4 border-l-blue-600">
-                <p class="text-sm font-medium text-slate-500 uppercase">Total Transaksi</p>
-                <p class="text-3xl font-extrabold text-slate-900 mt-2">{{ summary.total_transaksi }} <span class="text-base font-normal text-slate-500">Nota</span></p>
+            <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 flex items-center justify-between">
+                <div>
+                    <div class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Total Transaksi</div>
+                    <div class="text-3xl font-bold text-white">{{ summary.total_transaksi if summary else 0 }}</div>
+                </div>
+                <div class="w-12 h-12 bg-blue-500/10 rounded-xl flex items-center justify-center text-blue-400 text-xl">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
             </div>
-            
-            <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-200 border-l-4 border-l-emerald-500">
-                <p class="text-sm font-medium text-slate-500 uppercase">Total Omzet Penjualan</p>
-                <p class="text-3xl font-extrabold text-emerald-600 mt-2">Rp {{ "{:,.0f}".format(summary.total_omzet) }}</p>
+
+            <div class="bg-gray-800 rounded-2xl border border-gray-700 p-6 flex items-center justify-between">
+                <div>
+                    <div class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">Total Omzet Penjualan</div>
+                    <div class="text-3xl font-bold text-emerald-400">Rp {{ "{:,.0f}".format(summary.total_omzet) if summary else 0 }}</div>
+                </div>
+                <div class="w-12 h-12 bg-emerald-500/10 rounded-xl flex items-center justify-center text-emerald-400 text-xl">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
             </div>
         </div>
 
         <!-- Tabel Riwayat Transaksi -->
-        <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-            <div class="p-4 bg-slate-50 border-b border-slate-200">
-                <h3 class="font-bold text-slate-700">Riwayat Transaksi (Klik baris untuk lihat rincian)</h3>
+        <div class="bg-gray-800 rounded-2xl border border-gray-700 overflow-hidden">
+            <div class="px-6 py-4 border-b border-gray-700 flex justify-between items-center">
+                <h2 class="font-bold text-white text-base">Riwayat Transaksi Toko</h2>
             </div>
-            
+
             <div class="overflow-x-auto">
-                <table class="w-full text-left border-collapse text-sm">
-                    <thead>
-                        <tr class="bg-slate-100 text-slate-600 font-semibold uppercase text-xs border-b border-slate-200">
-                            <th class="p-4">No. Nota / ID</th>
-                            <th class="p-4">Pelanggan</th>
-                            <th class="p-4 text-right">Total Transaksi</th>
-                            <th class="p-4 text-center">Aksi</th>
+                <table class="w-full text-left text-sm text-gray-300">
+                    <thead class="bg-gray-900/50 text-gray-400 text-xs uppercase tracking-wider border-b border-gray-700">
+                        <tr>
+                            <th class="px-6 py-3">No. Nota</th>
+                            <th class="px-6 py-3">Pelanggan</th>
+                            <th class="px-6 py-3">Tanggal</th>
+                            <th class="px-6 py-3">Rincian Item</th>
+                            <th class="px-6 py-3 text-right">Total Bayar</th>
                         </tr>
                     </thead>
-                    <tbody class="divide-y divide-slate-200">
-                        {% for item in transaksi %}
-                        <tr class="hover:bg-blue-50 transition cursor-pointer" onclick='bukaModal("{{ item.no_nota if item.no_nota else item.id }}", "{{ item.nama_pelanggan if item.nama_pelanggan else "-" }}", {{ item.total_harga }}, {{ item.detail_items | tojson | safe }})'>
-                            <td class="p-4 font-mono font-bold text-blue-600">
-                                {{ item.no_nota if item.no_nota else item.id }}
+                    <tbody class="divide-y divide-gray-700/50">
+                        {% for t in transaksi %}
+                        <tr class="hover:bg-gray-750 transition">
+                            <td class="px-6 py-4 font-mono text-xs text-indigo-400 font-semibold">{{ t.no_nota }}</td>
+                            <td class="px-6 py-4 font-medium text-white">{{ t.nama_pelanggan }}</td>
+                            <td class="px-6 py-4 text-xs text-gray-400">{{ t.tanggal_transaksi }}</td>
+                            <td class="px-6 py-4">
+                                <ul class="space-y-1 text-xs">
+                                    {% for item in t.detail_items %}
+                                    <li class="text-gray-300">
+                                        <span class="font-medium text-white">{{ item.nama_barang }}</span> 
+                                        <span class="text-gray-500">x{{ item.jumlah }}</span>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
                             </td>
-                            <td class="p-4 font-medium text-slate-800">
-                                {{ item.nama_pelanggan if item.nama_pelanggan else '-' }}
-                            </td>
-                            <td class="p-4 text-right font-bold text-emerald-600">
-                                Rp {{ "{:,.0f}".format(item.total_harga) }}
-                            </td>
-                            <td class="p-4 text-center">
-                                <button class="px-3 py-1 bg-blue-100 text-blue-700 font-medium rounded-md hover:bg-blue-200 text-xs">
-                                    🔍 Cek Detail
-                                </button>
+                            <td class="px-6 py-4 text-right font-semibold text-emerald-400">
+                                Rp {{ "{:,.0f}".format(t.total_harga) }}
                             </td>
                         </tr>
                         {% else %}
                         <tr>
-                            <td colspan="4" class="p-8 text-center text-slate-400">Belum ada riwayat transaksi.</td>
+                            <td colspan="5" class="text-center py-8 text-gray-500">Belum ada transaksi recorded.</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
             </div>
         </div>
-    </main>
 
-    <!-- Modal Detail Transaksi -->
-    <div id="modalDetail" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50">
-        <div class="bg-white rounded-xl shadow-xl w-full max-w-lg overflow-hidden">
-            <div class="bg-slate-900 text-white p-4 flex justify-between items-center">
-                <h3 class="font-bold text-lg">Rincian Transaksi: <span id="modalNota" class="text-blue-400"></span></h3>
-                <button onclick="tutupModal()" class="text-slate-400 hover:text-white font-bold text-xl">&times;</button>
-            </div>
-            
-            <div class="p-6">
-                <div class="mb-4 pb-3 border-b border-slate-100 flex justify-between text-sm">
-                    <div>
-                        <p class="text-slate-500">Pelanggan:</p>
-                        <p id="modalPelanggan" class="font-bold text-slate-800"></p>
-                    </div>
-                </div>
-
-                <p class="font-semibold text-slate-700 mb-2 text-sm">Daftar Barang Dibeli:</p>
-                <div class="bg-slate-50 rounded-lg border border-slate-200 p-3 mb-4 max-h-48 overflow-y-auto">
-                    <table class="w-full text-xs">
-                        <thead>
-                            <tr class="text-slate-500 border-b border-slate-200 text-left">
-                                <th class="pb-2">Barang</th>
-                                <th class="pb-2 text-center">Qty</th>
-                                <th class="pb-2 text-right">Harga</th>
-                                <th class="pb-2 text-right">Subtotal</th>
-                            </tr>
-                        </thead>
-                        <tbody id="modalItems" class="divide-y divide-slate-200">
-                            <!-- Diisi via JavaScript -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="flex justify-between items-center pt-2 border-t border-slate-200">
-                    <span class="font-bold text-slate-700">Total Bayar:</span>
-                    <span id="modalTotal" class="text-xl font-extrabold text-emerald-600"></span>
-                </div>
-            </div>
-
-            <div class="bg-slate-50 px-6 py-3 text-right">
-                <button onclick="tutupModal()" class="px-4 py-2 bg-slate-600 text-white text-sm font-medium rounded-lg hover:bg-slate-700">
-                    Tutup
-                </button>
-            </div>
-        </div>
     </div>
 
-    <script>
-        function bukaModal(nota, pelanggan, total, items) {
-            document.getElementById('modalNota').innerText = nota;
-            document.getElementById('modalPelanggan').innerText = pelanggan;
-            document.getElementById('modalTotal').innerText = 'Rp ' + Number(total).toLocaleString('id-ID');
-
-            let tbody = document.getElementById('modalItems');
-            tbody.innerHTML = '';
-
-            if (items && items.length > 0) {
-                items.forEach(item => {
-                    if (item.nama_barang) {
-                        let row = `
-                            <tr>
-                                <td class="py-2 font-medium text-slate-800">${item.nama_barang}</td>
-                                <td class="py-2 text-center">${item.jumlah}</td>
-                                <td class="py-2 text-right">Rp ${Number(item.harga_satuan).toLocaleString('id-ID')}</td>
-                                <td class="py-2 text-right font-bold text-slate-700">Rp ${Number(item.subtotal).toLocaleString('id-ID')}</td>
-                            </tr>
-                        `;
-                        tbody.innerHTML += row;
-                    }
-                });
-            } else {
-                tbody.innerHTML = '<tr><td colspan="4" class="py-3 text-center text-slate-400">Rincian item tidak ditemukan.</td></tr>';
-            }
-
-            document.getElementById('modalDetail').classList.remove('hidden');
-            document.getElementById('modalDetail').classList.add('flex');
-        }
-
-        function tutupModal() {
-            document.getElementById('modalDetail').classList.add('hidden');
-            document.getElementById('modalDetail').classList.remove('flex');
-        }
-    </script>
 </body>
 </html>
