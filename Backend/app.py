@@ -199,18 +199,22 @@ def edit_item(id):
     user_id = session["user_id"]
     kode_barang = request.form["kode_barang"]
     nama_barang = request.form["nama_barang"]
-    stok = request.form["stok"]
-    stok_minimal = request.form["stok_minimal"]
-    harga_beli = request.form["harga_beli"]
-    harga_jual = request.form["harga_jual"]
+    tipe = request.form.get("tipe", "barang")
+    if tipe not in ("barang", "layanan"):
+        flash("Tipe item tidak valid.")
+        return redirect(url_for("dashboard"))
+
+    stok = 9999 if tipe == "layanan" else int(request.form.get("stok", 0))
+    harga_beli = 0 if tipe == "layanan" else float(request.form.get("harga_beli", 0))
+    harga_jual = float(request.form.get("harga_jual", 0))
 
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute("""
         UPDATE inventory 
-        SET kode_barang=%s, nama_barang=%s, stok=%s, stok_minimal=%s, harga_beli=%s, harga_jual=%s
+        SET kode_barang=%s, nama_barang=%s, tipe=%s, stok=%s, harga_beli=%s, harga_jual=%s
         WHERE id=%s AND user_id=%s
-    """, (kode_barang, nama_barang, stok, stok_minimal, harga_beli, harga_jual, id, user_id))
+    """, (kode_barang, nama_barang, tipe, stok, harga_beli, harga_jual, id, user_id))
     
     conn.commit()
     cursor.close()

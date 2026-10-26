@@ -151,7 +151,9 @@
                             <td class="p-3">Rp {{ "{:,.0f}".format(item.harga_beli) }}</td>
                             <td class="p-3 font-semibold text-emerald-400">Rp {{ "{:,.0f}".format(item.harga_jual) }}</td>
                             <td class="p-3 text-center space-x-2">
-                                <button onclick="editModal({{ item | tojson }})" class="text-gray-400 hover:text-amber-400"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button type="button" data-item="{{ item | tojson | forceescape }}" onclick="openEditModal(this.dataset.item)" class="text-gray-400 hover:text-amber-400" aria-label="Edit {{ item.nama_barang }}">
+                                    <i class="fa-solid fa-pen-to-square"></i>
+                                </button>
                                 <a href="/delete/{{ item.id }}" onclick="return confirm('Hapus item ini?')" class="text-gray-400 hover:text-red-400"><i class="fa-solid fa-trash"></i></a>
                             </td>
                         </tr>
@@ -213,5 +215,80 @@
         function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
         function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
     </script>
+
+
+
+
+<!-- Modal Edit Item -->
+<div id="editModal" class="fixed inset-0 bg-black/70 hidden items-center justify-center p-4 z-50">
+    <div class="bg-gray-800 border border-gray-700 rounded-2xl p-6 w-full max-w-md shadow-2xl">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-bold text-white">Edit Item Inventaris</h3>
+            <button onclick="closeEditModal()" class="text-gray-400 hover:text-white">&times;</button>
+        </div>
+
+        <form id="editForm" method="POST" class="space-y-3">
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Kode Barang</label>
+                <input type="text" id="edit_kode" name="kode_barang" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+            </div>
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Nama Barang / Layanan</label>
+                <input type="text" id="edit_nama" name="nama_barang" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">Tipe</label>
+                    <select id="edit_tipe" name="tipe" class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+                        <option value="barang">Barang Fisik</option>
+                        <option value="layanan">Layanan / Jasa</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">Jumlah Stok</label>
+                    <input type="number" id="edit_stok" name="stok" min="0" step="1" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">Harga Beli</label>
+                    <input type="number" id="edit_harga_beli" name="harga_beli" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+                </div>
+                <div>
+                    <label class="text-xs text-gray-400 block mb-1">Harga Jual</label>
+                    <input type="number" id="edit_harga_jual" name="harga_jual" required class="w-full bg-gray-900 border border-gray-700 rounded-xl p-2.5 text-sm text-white">
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-2 mt-6">
+                <button type="button" onclick="closeEditModal()" class="px-4 py-2 bg-gray-700 text-gray-300 rounded-xl text-xs">Batal</button>
+                <button type="submit" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white rounded-xl text-xs font-bold">Simpan Perubahan</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function openEditModal(itemJson) {
+        const item = JSON.parse(itemJson);
+        document.getElementById('editForm').action = '/edit/' + item.id;
+        document.getElementById('edit_kode').value = item.kode_barang;
+        document.getElementById('edit_nama').value = item.nama_barang;
+        document.getElementById('edit_tipe').value = item.tipe;
+        document.getElementById('edit_stok').value = item.stok;
+        document.getElementById('edit_harga_beli').value = item.harga_beli;
+        document.getElementById('edit_harga_jual').value = item.harga_jual;
+
+        const modal = document.getElementById('editModal');
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+    }
+
+    function closeEditModal() {
+        const modal = document.getElementById('editModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+    }
+</script>
 </body>
 </html>
